@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking Flow - KiddoTour</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#d2bbff",
+                      "primary-container": "#7c3aed",
+                      "tertiary-fixed-dim": "#ffb784",
+                      "primary": "#630ed4",
+                      "tertiary-container": "#a15100",
+                      "inverse-on-surface": "#f3eeff",
+                      "surface": "#fcf8ff",
+                      "surface-container": "#efebff",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#fcf8ff",
+                      "tertiary": "#7d3d00",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e3dfff",
+                      "inverse-surface": "#2d2a5b",
+                      "secondary-fixed-dim": "#ddb7ff",
+                      "secondary-fixed": "#f0dbff",
+                      "surface-container-high": "#e9e5ff",
+                      "on-tertiary-fixed": "#301400",
+                      "surface-variant": "#e3dfff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdcc6",
+                      "outline-variant": "#ccc3d8",
+                      "on-tertiary-container": "#ffe0cd",
+                      "surface-container-low": "#f6f2ff",
+                      "on-primary-container": "#ede0ff",
+                      "outline": "#7b7487",
+                      "on-surface": "#181445",
+                      "on-primary-fixed": "#25005a",
+                      "on-secondary-fixed": "#2c0051",
+                      "inverse-primary": "#d2bbff",
+                      "on-primary-fixed-variant": "#5a00c6",
+                      "error": "#ba1a1a",
+                      "secondary-container": "#9c48ea",
+                      "on-tertiary-fixed-variant": "#713700",
+                      "surface-dim": "#dad6ff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#eaddff",
+                      "background": "#fcf8ff",
+                      "on-background": "#181445",
+                      "secondary": "#8127cf",
+                      "on-secondary-container": "#fffbff",
+                      "on-secondary-fixed-variant": "#6900b3",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#4a4455",
+                      "surface-tint": "#732ee4",
+                      "error-container": "#ffdad6",
+                      "success": "#10B981",
+                      "success-container": "#D1FAE5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "2xl": "1rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "12px",
+                      "stack-xl": "80px",
+                      "stack-lg": "48px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "stack-xs": "4px",
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "stack-md": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Geist"],
+                      "headline-lg-mobile": ["Geist"],
+                      "headline-lg": ["Geist"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Geist"],
+                      "label-sm": ["Geist"],
+                      "display": ["Geist"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 24px 48px -12px rgba(124, 58, 237, 0.08);
+        }
+        
+        /* Time Chips Gradient Border */
+        .time-chip {
+            position: relative;
+            background: white;
+            background-clip: padding-box;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .time-chip::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, #e3dfff, #efebff);
+            transition: opacity 0.3s ease;
+        }
+        .time-chip:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+        }
+        .time-chip:hover::before {
+            background: linear-gradient(135deg, #d2bbff, #eaddff);
+        }
+        .time-chip.selected {
+            background: linear-gradient(135deg, #f6f2ff, #efebff);
+            border-color: transparent;
+        }
+        .time-chip.selected::before {
+            background: linear-gradient(135deg, #8127cf, #630ed4);
+        }
+
+        /* Stepper Animation */
+        .stepper-line {
+            background-image: linear-gradient(90deg, #10B981 0%, #10B981 50%, #e3dfff 50%, #e3dfff 100%);
+            background-size: 200% 100%;
+            animation: fillLine 1s ease-out forwards;
+        }
+        @keyframes fillLine {
+            from { background-position: 100% 0; }
+            to { background-position: 0 0; }
+        }
+        
+        .pulse-ring {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0); }
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, #8127cf, #630ed4);
+            box-shadow: 0 4px 14px 0 rgba(99, 14, 212, 0.25), 0 0 20px 0 rgba(124, 58, 237, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 6px 20px rgba(99, 14, 212, 0.4), 0 0 24px rgba(124, 58, 237, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .mesh-bg {
+            background-color: #fcf8ff;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,100%,96%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,100%,97%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(277,100%,96%,1) 0, transparent 50%);
+        }
+
+        /* Scroll Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="mesh-bg text-on-surface font-body-md min-h-screen pb-[120px]">
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl dark:bg-surface/80 border-b border-surface-variant/50 shadow-sm">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity duration-200" onclick="window.history.back()">
+<span class="material-symbols-outlined text-on-surface-variant">arrow_back</span>
+<span class="font-label-md text-label-md text-on-surface-variant hidden md:block">Back</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">child_care</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">KiddoTour</span>
+</div>
+<div class="w-8 md:w-16"></div>
+</div>
+</header>
+<main class="pt-[120px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Animated Stepper -->
+<div class="max-w-2xl mx-auto mb-12">
+<div class="flex items-center justify-between relative px-2">
+<div class="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-1 bg-surface-variant rounded-full z-0"></div>
+<div class="absolute left-6 w-[66%] top-1/2 -translate-y-1/2 h-1 stepper-line rounded-full z-0"></div>
+<!-- Step 1: Completed -->
+<div class="relative z-10 flex flex-col items-center gap-3 bg-mesh-bg">
+<div class="w-10 h-10 rounded-full bg-success flex items-center justify-center shadow-[0_0_12px_rgba(16,185,129,0.4)] transition-transform hover:scale-110">
+<span class="material-symbols-outlined text-white text-base" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute -bottom-6 whitespace-nowrap hidden md:block">Centre</span>
+</div>
+<!-- Step 2: Completed -->
+<div class="relative z-10 flex flex-col items-center gap-3 bg-mesh-bg">
+<div class="w-10 h-10 rounded-full bg-success flex items-center justify-center shadow-[0_0_12px_rgba(16,185,129,0.4)] transition-transform hover:scale-110">
+<span class="material-symbols-outlined text-white text-base" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute -bottom-6 whitespace-nowrap hidden md:block">Date</span>
+</div>
+<!-- Step 3: Active -->
+<div class="relative z-10 flex flex-col items-center gap-3 bg-mesh-bg">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center pulse-ring">
+<span class="font-label-md text-label-md text-white">3</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold absolute -bottom-6 whitespace-nowrap hidden md:block">Time</span>
+</div>
+<!-- Step 4: Pending -->
+<div class="relative z-10 flex flex-col items-center gap-3 bg-mesh-bg">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center border-2 border-surface-variant text-outline">
+<span class="font-label-md text-label-md">4</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline absolute -bottom-6 whitespace-nowrap hidden md:block">Details</span>
+</div>
+</div>
+</div>
+<div class="max-w-2xl mx-auto space-y-8">
+<!-- Step 3: Time Slots Card -->
+<section class="glass-card rounded-2xl p-8 md:p-10 fade-in-section">
+<h2 class="font-headline-md text-headline-md mb-2 text-on-surface tracking-tight">Select a Time</h2>
+<p class="text-on-surface-variant mb-8 font-body-md text-body-md">Choose a convenient slot for your tour.</p>
+<div class="space-y-8">
+<!-- Morning -->
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface mb-4 flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-primary">light_mode</span> Morning
+                        </h3>
+<div class="flex flex-wrap gap-4">
+<button class="time-chip px-6 py-3 rounded-xl text-on-surface font-label-md text-label-md outline-none">09:00 AM</button>
+<button class="time-chip px-6 py-3 rounded-xl text-on-surface font-label-md text-label-md outline-none">10:30 AM</button>
+<button class="time-chip selected px-6 py-3 rounded-xl text-primary font-label-md text-label-md outline-none flex items-center gap-2 shadow-sm">
+                                11:00 AM <span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+</button>
+</div>
+</div>
+<!-- Afternoon -->
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface mb-4 flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-primary">wb_sunny</span> Afternoon
+                        </h3>
+<div class="flex flex-wrap gap-4">
+<button class="px-6 py-3 rounded-xl border border-outline-variant/30 bg-surface-container-lowest/50 text-outline font-label-md text-label-md outline-none cursor-not-allowed" disabled="">01:00 PM</button>
+<button class="time-chip px-6 py-3 rounded-xl text-on-surface font-label-md text-label-md outline-none">02:30 PM</button>
+<button class="time-chip px-6 py-3 rounded-xl text-on-surface font-label-md text-label-md outline-none">04:00 PM</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 4: Parent Details Form -->
+<section class="glass-card rounded-2xl p-8 md:p-10 fade-in-section">
+<h2 class="font-headline-md text-headline-md mb-2 text-on-surface tracking-tight">Your Details</h2>
+<p class="text-on-surface-variant mb-8 font-body-md text-body-md">We need a few details to confirm your booking.</p>
+<form class="space-y-6">
+<!-- Parent Name -->
+<div class="relative">
+<input class="peer w-full rounded-xl border border-success/50 bg-white/50 px-4 pb-2 pt-6 text-on-surface focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder-transparent" id="parentName" placeholder="Parent Name" type="text" value="Jane Doe"/>
+<label class="absolute left-4 top-2 text-xs font-medium text-success transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-outline peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary pointer-events-none" for="parentName">Parent Name</label>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-success">check_circle</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Email -->
+<div class="relative">
+<input class="peer w-full rounded-xl border border-outline-variant/50 bg-white/50 px-4 pb-2 pt-6 text-on-surface focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder-transparent" id="email" placeholder="Email Address" type="email"/>
+<label class="absolute left-4 top-2 text-xs font-medium text-outline transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary pointer-events-none" for="email">Email Address</label>
+</div>
+<!-- Phone -->
+<div class="relative">
+<input class="peer w-full rounded-xl border border-error/50 bg-error-container/10 px-4 pb-2 pt-6 text-on-surface focus:border-error focus:bg-white focus:outline-none focus:ring-2 focus:ring-error/20 transition-all placeholder-transparent" id="phone" placeholder="Phone Number" type="tel" value="invalid-phone"/>
+<label class="absolute left-4 top-2 text-xs font-medium text-error transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-outline peer-focus:top-2 peer-focus:text-xs peer-focus:text-error pointer-events-none" for="phone">Phone Number</label>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-error">error</span>
+</div>
+</div>
+<div class="h-px bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent my-6"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Child Name -->
+<div class="relative">
+<input class="peer w-full rounded-xl border border-outline-variant/50 bg-white/50 px-4 pb-2 pt-6 text-on-surface focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder-transparent" id="childName" placeholder="Child's Name" type="text"/>
+<label class="absolute left-4 top-2 text-xs font-medium text-outline transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary pointer-events-none" for="childName">Child's Name</label>
+</div>
+<!-- Child Age -->
+<div class="relative">
+<select class="peer w-full rounded-xl border border-outline-variant/50 bg-white/50 px-4 pb-2 pt-6 text-on-surface focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none" id="childAge">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="infant">Under 1 year</option>
+<option value="toddler">1-3 years</option>
+<option value="preschool">3-5 years</option>
+</select>
+<label class="absolute left-4 top-2 text-xs font-medium text-outline transition-all peer-focus:text-primary pointer-events-none" for="childAge">Age</label>
+<div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Preferred Language -->
+<div class="relative">
+<select class="peer w-full rounded-xl border border-outline-variant/50 bg-white/50 px-4 pb-2 pt-6 text-on-surface focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none" id="language">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="en">English</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="other">Other</option>
+</select>
+<label class="absolute left-4 top-2 text-xs font-medium text-outline transition-all peer-focus:text-primary pointer-events-none" for="language">Preferred Language (Optional)</label>
+<div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+<!-- Special Requirements -->
+<div class="relative">
+<textarea class="peer w-full rounded-xl border border-outline-variant/50 bg-white/50 px-4 pb-2 pt-6 text-on-surface focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder-transparent resize-none h-24" id="requirements" placeholder="Special Requirements"></textarea>
+<label class="absolute left-4 top-2 text-xs font-medium text-outline transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary pointer-events-none" for="requirements">Special Requirements (Optional)</label>
+</div>
+</div>
+</form>
+</section>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl border-t border-surface-variant/50 p-4 shadow-[0_-4px_24px_rgba(0,0,0,0.02)] z-50">
+<div class="max-w-2xl mx-auto">
+<button class="btn-glow w-full py-4 rounded-xl text-white font-label-md text-label-md flex items-center justify-center gap-2" type="button">
+            Review Booking <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-outline-variant font-label-sm text-label-sm mt-2">You won't be charged yet.</p>
+</div>
+</div>
+<script>
+    // Simple Intersection Observer for fade-in animations
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-section').forEach((el) => {
+            observer.observe(el);
+            // Fallback for immediate visibility if already in viewport on load
+            if (el.getBoundingClientRect().top < window.innerHeight) {
+                 el.classList.add('is-visible');
+            }
+        });
+    });
+</script>
+</body></html>
