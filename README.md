@@ -119,11 +119,7 @@ npm run preview
 
 ## Deployment
 
-This project is deployment-ready and can be hosted on:
-
-* Vercel
-* Netlify
-* GitHub Pages
+* Vercel - kiddo-tour-1uygcyn3h-rajtilak123s-projects.vercel.app
 
 Build output directory:
 
