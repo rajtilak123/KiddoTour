@@ -1,98 +1,140 @@
-# KiddoTour Booking Platform
+# KiddoTour – Preschool Tour Booking Platform
 
-KiddoTour is a luxury preschool and early childhood learning centre tour booking platform. Originally migrated from static HTML prototypes, this application has been fully refactored into a modern, production-ready, pure React.js architecture. The visual interface, glassmorphic styling, and animations remain exactly identical to the original high-end designs, but all underlying interactivity is managed through declarative React state.
+KiddoTour is a modern preschool discovery and tour booking platform that helps parents explore early learning centres, compare options, and schedule visits seamlessly.
 
-## Tech Stack
-
-- **Framework**: React.js (v18+) with Vite (for ultra-fast bundling and development)
-- **Styling**: Tailwind CSS (Utility-first style configuration)
-- **Routing**: React Router DOM (v6+ client-side routing)
-- **State Management**: React Context API & `useState` hook (with `localStorage` persistence)
-- **Animations**: Framer Motion & CSS keyframe transitions
-- **Accessibility**: Screen reader compatible (aria properties, accessible image roles, keyboard focus bindings)
-- **Code Hygiene**: Fully code-split routes (lazy loading), custom class-based error boundaries
-
-## Features
-
-- **Dynamic Booking Flow**: Navigate sequentially from Home $\rightarrow$ Booking Selection $\rightarrow$ Parent Details $\rightarrow$ Confirmation.
-- **Persistent State**: All user selections (preschool centre, calendar date, time slot, form data) are synchronized in real-time with `localStorage`. Selections persist through browser refreshes or back-and-forth navigation.
-- **Interactive Map and QR Codes**: Confirmation page renders dynamic visitor cards containing actual selected centre names, addresses, date ranges, visitor names, and emails.
-- **A11y & Keyboard Compliant**: Calendar grids, time chips, and cards support `aria-pressed`, focus indicators, and keyboard activation (Enter/Space triggers).
-- **Smooth Navigation Scroll**: Features React `useRef` anchors for homepage sections (`#how-it-works`, `#centres`, `#providers`). Link triggers automatically redirect to the home page and scroll smoothly to the target ref.
-- **Robust Error Handling**: Wrapped in a top-level React `ErrorBoundary` fallback screen to capture and recover from runtime render crashes.
+This project was originally designed as a UI prototype and later converted into a fully functional React application using Vite, React Router, Tailwind CSS, and Context API while preserving the original premium user experience and visual design.
 
 ---
 
-## Folder Structure
+## Features
 
-The project has been cleaned of unused placeholders and HTML asset files. The current structure is as follows:
+### Home Page
+
+* Premium landing page with modern UI
+* Featured preschool listings
+* Smooth section navigation
+* Mobile-first responsive design
+
+### Booking Flow
+
+* Select a preschool centre
+* Choose an available tour date
+* Pick a preferred time slot
+* Enter parent and child details
+* Review booking information
+* Receive booking confirmation
+
+### State Persistence
+
+* Booking information persists using localStorage
+* User selections remain available after page refresh
+
+### Responsive Design
+
+* Optimized for:
+
+  * Mobile devices
+  * Tablets
+  * Desktop screens
+
+### Accessibility
+
+* Keyboard-friendly navigation
+* Semantic HTML structure
+* ARIA labels for interactive elements
+
+---
+
+## Tech Stack
+
+* React.js
+* Vite
+* React Router DOM
+* Tailwind CSS
+* Context API
+* Framer Motion
+
+---
+
+## Project Structure
 
 ```text
 src/
-├── assets/
-│   └── screenshots/          # Design walkthrough references
 ├── components/
-│   └── ErrorBoundary.jsx     # Top-level crash catcher & reset controller
-├── context/
-│   └── BookingContext.jsx    # Global context provider & localStorage syncing
-├── hooks/
-│   └── useBooking.js         # custom context consumption hook
 ├── pages/
-│   ├── LandingPage.jsx       # Homepage with scroll anchors
-│   ├── BookingSelectionPage.jsx # Centre, date, and slot picker
-│   ├── ParentDetailsPage.jsx # Parent/Child form and validation
-│   ├── ConfirmationPage.jsx  # Summary card & QR booking pass
-│   └── NotFoundPage.jsx      # Glassmorphic 404 router
+├── context/
+├── hooks/
 ├── routes/
-│   └── AppRoutes.jsx         # Lazy route routing & suspense skeleton
-├── App.jsx                   # Application root routing shell
-├── main.jsx                  # React DOM strict mounter
-└── index.css                 # Main Tailwind styles entrypoint
+├── assets/
+├── App.jsx
+└── main.jsx
 ```
 
 ---
 
-## Installation & Setup
+## Getting Started
 
-### 1. Install Dependencies
+### Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 2. Run Local Development Server
+### Run Development Server
+
 ```bash
 npm run dev
 ```
-Navigate your browser to `http://localhost:5173`.
 
-### 3. Production Build
-Build optimized production static bundles under `dist/`:
+Application runs at:
+
+```text
+http://localhost:5173
+```
+
+### Production Build
+
 ```bash
 npm run build
 ```
 
-To preview the production build locally:
+### Preview Production Build
+
 ```bash
 npm run preview
 ```
 
 ---
 
-## Deployment Instructions
+## Routes
 
-### Vercel (SPA Routing Configured)
-This project contains a [vercel.json](vercel.json) file that handles client-side routing fallback rewrites:
-- Build command: `npm run build`
-- Output directory: `dist`
+| Route         | Description          |
+| ------------- | -------------------- |
+| /             | Landing Page         |
+| /booking      | Tour Booking         |
+| /details      | Parent Details       |
+| /confirmation | Booking Confirmation |
 
-### Netlify (SPA Redirects Configured)
-This project includes a public `_redirects` file that automatically enables client-side fallbacks on Netlify:
-- Build command: `npm run build`
-- Publish directory: `dist`
+---
 
-### GitHub Pages
-Configure `VITE_BASE_PATH` in your `.env` or build action matching your repository sub-path (e.g. `/my-repository/`):
-```bash
-VITE_BASE_PATH=/
+## Deployment
+
+This project is deployment-ready and can be hosted on:
+
+* Vercel
+* Netlify
+* GitHub Pages
+
+Build output directory:
+
+```text
+dist/
 ```
-Deploy the output `dist/` folder using the standard GitHub Action deploy runner.
+
+---
+
+## Project Goal
+
+The objective of this project was to create a polished frontend experience for a preschool tour booking workflow while demonstrating modern React development practices, responsive design, component architecture, routing, state management, and deployment readiness.
+
+---
